@@ -52,7 +52,7 @@ def block_density_features(image: np.ndarray, num_rows: int,
 def get_region_density_features(region: np.ndarray, threshold: float) -> int:
     if region.size == 0:
         return 0
-    density = np.mean(region)
+    density = np.mean(region) # Compute density of reigion 
     return 1 if density > threshold else 0
 
 
@@ -107,7 +107,7 @@ def face_features_regions(image: np.ndarray) -> np.ndarray:
     threshold = 0.15
 
     # Define the regions using array slicing
-    reigons = [
+    regions = [
         image[0:mid_row, :],     # Upper half
         image[mid_row:H, :],     # Lower half
         image[:, 0:mid_col],     # Left half
@@ -115,6 +115,5 @@ def face_features_regions(image: np.ndarray) -> np.ndarray:
     ]
 
     # Calculate density features for each region
-    features = [get_region_density_features(region, threshold) for region in reigons]
-    return np.array(features, dtype = np.int8)
-
+    features = [get_region_density_features(region, threshold) for region in regions]
+    return np.array(features, dtype=np.int8)

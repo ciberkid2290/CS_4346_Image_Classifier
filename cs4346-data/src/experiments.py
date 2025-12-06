@@ -9,8 +9,8 @@ from features import (              # Importing feature extraction functions
     face_features_raw,
     face_features_regions,
 )
-from naive_bayes import NaiveBayes
-from perceptron import Perceptron 
+from naive_bayes import NaiveBayesClassifier as NaiveBayes
+from perceptron import PerceptronClassifier as Perceptron
 
 # Count how many labels in a label file
 def count_labels(label_file):
@@ -34,13 +34,11 @@ def load_digit_data():
     test_images_file = os.path.join("digitdata", "testimages")
     test_labels_file = os.path.join("digitdata", "testlabels")
 
-    num_train = count_labels(train_labels_file)
-    num_test = count_labels(test_labels_file)
+    train_labels = load_labels(train_labels_file)
+    test_labels = load_labels(test_labels_file)
     
-    train_images = load_images(train_images_file, num_train, DIGIT_WIDTH, DIGIT_HEIGHT)
-    train_labels = load_labels(train_labels_file, num_train)
-    test_images = load_images(test_images_file, num_test, DIGIT_WIDTH, DIGIT_HEIGHT)
-    test_labels = load_labels(test_labels_file, num_test)
+    train_images = load_images(train_images_file, len(train_labels), DIGIT_WIDTH, DIGIT_HEIGHT)
+    test_images = load_images(test_images_file, len(test_labels), DIGIT_WIDTH, DIGIT_HEIGHT)
 
     return train_images, train_labels, test_images, test_labels
 
@@ -52,13 +50,11 @@ def load_face_data():
     test_images_file = os.path.join("facedata", "facedatatest")
     test_labels_file = os.path.join("facedata", "facedatatestlabels")
 
-    num_train = count_labels(train_labels_file)
-    num_test = count_labels(test_labels_file)
+    train_labels = load_labels(train_labels_file)
+    test_labels = load_labels(test_labels_file)
     
-    train_images = load_images(train_images_file, num_train, DIGIT_WIDTH, DIGIT_HEIGHT)
-    train_labels = load_labels(train_labels_file, num_train)
-    test_images = load_images(test_images_file, num_test, DIGIT_WIDTH, DIGIT_HEIGHT)
-    test_labels = load_labels(test_labels_file, num_test)
+    train_images = load_images(train_images_file, len(train_labels), FACE_WIDTH, FACE_HEIGHT)
+    test_images = load_images(test_images_file, len(test_labels), FACE_WIDTH, FACE_HEIGHT)
 
     return train_images, train_labels, test_images, test_labels
 
